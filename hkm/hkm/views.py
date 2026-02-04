@@ -1,0 +1,8 @@
+from django.shortcuts import render
+
+
+def home(request):
+    return render(request,'pages/index.html')
+
+def contacts(request):
+    return render(request, 'pages/contact_us.html')
