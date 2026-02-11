@@ -77,16 +77,55 @@ CSS background paths were broken, and testimonial images were missing locally.
 ### Problem:
 - **Back to Gallery Links**: The "Back to Gallery" button on individual course pages (`Game_Design.html`, `3d-animation.html`, etc.) was hardcoded to `index.html` or `#`, failing to correctly navigate users back to the previous page/context.
 - **404 Errors on Course Pages**: Specifically, `Graphics_Animation` was redirecting to `/courses/graphics-animation/index.html` because of the relative link `index.html`, which didn't exist.
-- **Missing Course Links**: The course overview page (`course.html`) had placeholder links (`#`) for all "View Details" buttons.
+- **Missing Course Links**: The course overview page (`course.html`) and the home page (`index.html`) had placeholder links (`#`) for all "View Details" buttons.
 - **Navbar Inconsistency**: The navbar on the `index` page was hidden by default and only appeared on scroll, whereas on other pages it was always visible.
 - **Browser Caching Issue**: Chrome was caching the JavaScript file, causing the scrolling animation fix to not appear immediately.
 
 ### Fix:
 - **Smart Back Navigation**: Updated the "Back to Gallery" link in all 11 course templates to use `javascript:history.back()`. This ensures users return exactly to where they came from (e.g., the specific list position).
-- **Template URL Linking**: Updated all "View Details" buttons in `course.html` to use the correct Django `{% url 'Name' %}` tags (e.g., `Graphics_Design`, `2D_Animation`), fixing all broken links.
+- **Template URL Linking**: Updated all "View Details" buttons in `course.html` and `index.html` to use the correct Django `{% url 'Name' %}` tags (e.g., `Graphics_Design`, `2D_Animation`), fixing all broken links across the catalog and homepage.
 - **Navbar Standardization**:
     - Modified `style.css` to remove the initial hidden state (`opacity: 0`, `visibility: hidden`) of the navbar.
     - Set the navbar background to solid blue (`rgba(29, 53, 87, 0.8)`) by default.
     - Commented out the scroll event listener in `script.js` that toggled the `.scrolled` class, ensuring the navbar remains static and consistent across the index page.
 - **Cache Busting**: Added a version query string (`?v=20260209`) to the `script.js` inclusion in `index.html` and `course.html` to force browsers to reload the updated JavaScript file.
 - **Brochure Download**: Verified the implementation of the brochure download button in the navigation bar (`nav.html`), ensuring it points to `{% static 'pdfs/Brochure_2026.pdf' %}` with the correct `download` attribute.
+
+## 10. Course Page Visual Enhancements & Consistency (2026-02-11)
+### Problem:
+- **Visual Distinction**: The Course Overview page needed a distinct visual identity while maintaining brand consistency with the Home page.
+- **Background Loading**: The background image required specific filtering to ensure text readability which was not covered by the global CSS.
+- **Text Animation**: The "Gaming Text" animation effect used on the Home page headers was missing from the Course page headers.
+
+### Fix:
+- **Custom Background**: Applied a page-specific background overlay in `course.html` using inline CSS (`.bg-image`) with a specific image (`game-06.jpg`) and filters (`brightness(0.6) saturate(1.1)`) to create a premium, dark-themed aesthetic.
+- **Animation Integration**: Integrated the "Gaming Text Animation" system directly into `course.html` via an inline script, applying the split-text reveal effect to the main "OUR PROFESSIONAL COURSES" header and subtitles.
+- **Scroll Replay**: configured an `IntersectionObserver` to trigger the text animation when elements scroll into view, ensuring a dynamic user experience.
+
+## 11. Footer Functionality & Contact Page Map Integration (2026-02-11)
+### Problem:
+- **Broken Footer Links**: Most links in the footer's "Quick Links" and "Our Courses" sections were placeholders (`#`), making navigation from the bottom of the page impossible.
+- **Static Map Placeholder**: The Contact page featured a "MAP VIEW" box that didn't contain an actual map, reducing the page's utility.
+- **Outdated Contact Info**: The footer email was pointing to a generic address instead of the official Gmail account.
+
+### Fix:
+- **Footer Link Activation**: Updated `footer.html` to use correct Django `{% url %}` tags for all 12+ links:
+    - Integrated anchor links (e.g., `{% url 'home' %}#about-us`) for internal page navigation.
+    - Linked all 6 primary courses in the footer to their respective detail pages.
+- **Live Google Map Integration**: 
+    - Embedded a live Google Maps iframe for "Raj Corner" in `contact_us.html`.
+    - Optimized for responsiveness by setting `width="100%"` and `height="100%"` inside the `.map-placeholder` container (which scales from 500px to 220px based on device).
+- **Content Synchronization**: Corrected the footer email address to `harikrushnamultimedia@gmail.com` to match the institution's official contact channel.
+
+## Summary of Fixed Navigation:
+| Link | Destination | Type |
+| :--- | :--- | :--- |
+| Home | `/` | URL Name: `home` |
+| About Us | `/` (About Section) | Anchor: `#about-us` |
+| Courses | `/courses/` | URL Name: `courses` |
+| Events | `/events/` | URL Name: `events` |
+| Contact | `/contacts/` | URL Name: `contacts` |
+| Course Details | `/courses/[name]/` | Specific Detail Views |
+
+All mission-critical navigation paths are now fully operational across the Header, Footer, and Page Content.
+
