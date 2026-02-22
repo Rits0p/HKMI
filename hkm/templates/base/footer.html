@@ -132,6 +132,16 @@
             font-size: 14px;
         }
 
+        .contact-info a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #e63946;
+        }
+
         .btn-verify {
             display: inline-block;
             color: #e63946;
@@ -243,7 +253,7 @@
                 <h3 class="col-title anim-text">Quick Links</h3>
                 <ul class="footer-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'home' %}#about-us">About Us</a></li>
+                    <li><a href="{% url 'aboutus' %}">About Us</a></li>
                     <li><a href="{% url 'courses' %}">Courses</a></li>
                     <li><a href="{% url 'home' %}#portfolios">Portfolios</a></li>
                     <li><a href="{% url 'events' %}">Event</a></li>
@@ -286,12 +296,11 @@
             </div>
         </div>
 
-        <!-- NEW: Footer Logos Section -->
         <div class="footer-logos">
-            <img src="{% static 'images/im1.png' %}" alt="Logo 1"> <!-- Replace with actual logo path -->
-            <img src="{% static 'images/im2.png' %}" alt="Logo 2"> <!-- Replace with actual logo path -->
-            <img src="{% static 'images/im3.png' %}" alt="Logo 3"> <!-- Replace with actual logo path -->
-            <img src="{% static 'images/im4.png' %}" alt="Logo 4"> <!-- Replace with actual logo path -->
+            <img src="{% static 'images/im1_kekhrs.webp' %}" alt="Logo 1">
+            <img src="{% static 'images/im2_cjjd96.webp' %}" alt="Logo 2">
+            <img src="{% static 'images/im3_arbb3c.webp' %}" alt="Logo 3">
+            <img src="{% static 'images/im4_gnwxms.webp' %}" alt="Logo 4">
         </div>
 
         <div class="footer-bottom">

@@ -57,3 +57,7 @@ def contacts(request):
             messages.error(request, 'Please fill in all fields.')
 
     return render(request, 'pages/contact_us.html')
+
+def aboutus(request):
+    return render(request, 'pages/aboutus.html')
+
